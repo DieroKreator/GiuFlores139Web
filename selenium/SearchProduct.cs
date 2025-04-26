@@ -36,17 +36,19 @@ public class SearchproductTest
         searchBox.SendKeys("Mini Rosa Encantada");
         IWebElement searchButton = driver.FindElement(By.Id("btnSearch"));
         searchButton.Click();
-        IWebElement product = wait.Until(
-            driver => driver.FindElement(By.XPath("//*[contains(text(),'Mini Rosa Encantada')]"))
+        IWebElement product = wait.Until(driver =>
+            driver.FindElement(By.XPath("//*[contains(text(),'Mini Rosa Encantada')]"))
         );
-        Assert.AreEqual(product.Text, "Mini Rosa Encantada");
+        Assert.That("Mini Rosa Encantada", Is.EqualTo(product.Text));
         product.Click();
         // Thread.Sleep(2000); // Espera 2 segundos para visualizar o resultado
-        IWebElement productPageLabel = wait.Until(driver => driver.FindElement(By.Id("ContentSite_lblProductDsName")));
+        IWebElement productPageLabel = wait.Until(driver =>
+            driver.FindElement(By.Id("ContentSite_lblProductDsName"))
+        );
         IList<IWebElement> productPagePrice = driver.FindElements(
             By.XPath("//span[@class='precoPor_prod']")
         );
-        Assert.AreEqual(productPageLabel.Text, "MINI ROSA ENCANTADA");
-        Assert.AreEqual(productPagePrice[0].Text, "R$ 299,90");
+        Assert.That("MINI ROSA ENCANTADA", Is.EqualTo(productPageLabel.Text));
+        Assert.That("R$ 299,90", Is.EqualTo(productPagePrice[0].Text));
     }
 }
